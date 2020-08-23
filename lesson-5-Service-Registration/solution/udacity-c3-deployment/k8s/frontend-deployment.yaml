@@ -1,11 +1,14 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
     service: frontend
   name: frontend
 spec:
-  replicas: 2
+  replicas: 1
+  selector:
+    matchLabels:
+      service: frontend
   template:
     metadata:
       labels:
@@ -13,7 +16,7 @@ spec:
         api: external        
     spec:
       containers:
-      - image: scheele/udacity-frontend:local
+      - image: aloksinha/udacity-frontend:local
         name: frontend
         imagePullPolicy: Always          
         ports:
@@ -21,9 +24,9 @@ spec:
         resources:
           requests:
             memory: "64Mi"
-            cpu: "250m"
+            cpu: "100m"
           limits:
-            memory: "1024Mi"
-            cpu: "500m"                
+            memory: "512Mi"
+            cpu: "100m"                
       restartPolicy: Always
 
